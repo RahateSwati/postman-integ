@@ -1,0 +1,117 @@
+{
+	"info": {
+		"_postman_id": "fd8bfeb4-129d-4184-bf3f-c627d7a74b12",
+		"name": "Open direct",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23493605"
+	},
+	"item": [
+		{
+			"name": "list pending accounts",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://account-service.eks-test.awscloud.private/listPendingAccountRequests",
+					"protocol": "http",
+					"host": [
+						"account-service",
+						"eks-test",
+						"awscloud",
+						"private"
+					],
+					"path": [
+						"listPendingAccountRequests"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "request for account creation",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () { ",
+							"    pm.response.to.have.status(200); ",
+							"});",
+							"pm.test(\"Content-Type is present\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"pm.test(\"Location is present\", function () {",
+							"    pm.response.to.have.header(\"Location\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "clientSecret",
+							"value": "v5o0sh3s3a7ej5me5e4krai92ul86oq66gi1vmt2lhk6a6h9sgp",
+							"type": "string"
+						},
+						{
+							"key": "clientId",
+							"value": "d1em9ibb74pr4flbgklr1tjss",
+							"type": "string"
+						},
+						{
+							"key": "accessTokenUrl",
+							"value": "https://launchpad-test.auth.eu-west-1.amazoncognito.com/oauth2/token",
+							"type": "string"
+						},
+						{
+							"key": "grant_type",
+							"value": "client_credentials",
+							"type": "string"
+						},
+						{
+							"key": "tokenName",
+							"value": "launchpad test",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n       \"AdvertiserId\": \"Sw123\",\n       \"BuyerId\": \"123\",\n       \"ThirdPartyId\": \"add-123\",\n       \"Name\": \"swati\",\n       \"ProviderData\": \"brand=apple\"\n}"
+				},
+				"url": {
+					"raw": "http://open-direct.eks-test.awscloud.private/accounts",
+					"protocol": "http",
+					"host": [
+						"open-direct",
+						"eks-test",
+						"awscloud",
+						"private"
+					],
+					"path": [
+						"accounts"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
